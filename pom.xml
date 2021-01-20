@@ -29,14 +29,165 @@
 		    <version>2.2.6</version>
 		    <!-- <version>1.0.4</version> -->
 		</dependency>
+		
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.12</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.11</version>
+		</dependency>
+
+		
+		
+		<!-- <dependency>
+		    <groupId>net.mingsoft</groupId>
+		    <artifactId>shiro-freemarker-tags</artifactId>
+		    <version>0.1</version>
+		</dependency> -->
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.10-FINAL</version>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
 		<dependency>
 		    <groupId>org.apache.poi</groupId>
 		    <artifactId>poi-ooxml-schemas</artifactId>
 		    <version>3.15</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
+		
+		<dependency>
+		    <groupId>commons-collections</groupId>
+		    <artifactId>commons-collections</artifactId>
+		    <version>3.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-collections4</artifactId>
+		    <version>4.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.xmlbeans</groupId>
+		    <artifactId>xmlbeans</artifactId>
+		    <version>2.6.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>xmlbeans</groupId>
+		    <artifactId>xbean</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
+		<!-- 
+		<dependency>
+		    <groupId>org.apache.xbean</groupId>
+		    <artifactId>xbean-spring</artifactId>
+		    <version>2.8</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-aop</artifactId>
+		    <version>2.0</version>
+		</dependency> -->
+		<!-- https://mvnrepository.com/artifact/struts/struts -->
+		<!-- <dependency>
+		    <groupId>struts</groupId>
+		    <artifactId>struts</artifactId>
+		    <version>1.2.7</version>
+		</dependency> -->
+		<!-- <dependency>
+		    <groupId>struts</groupId>
+		    <artifactId>struts</artifactId>
+		    <version>1.2.9</version>
+		</dependency> -->
+		
+		<dependency>
+		    <groupId>com.github.jhonnymertz</groupId>
+		    <artifactId>java-wkhtmltopdf-wrapper</artifactId>
+		    <version>1.1.13-RELEASE</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+	    <dependency>
+	        <groupId>org.slf4j</groupId>
+	        <artifactId>slf4j-log4j12</artifactId>
+	        <version>1.7.25</version>
+	    </dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+		<dependency>
+		    <groupId>org.freemarker</groupId>
+		    <artifactId>freemarker</artifactId>
+		    <version>2.3.28</version>
+		</dependency>
+		
 		
   </dependencies>
   
-  <build/>
+  <!-- <build/> -->
+ <!--    <build>
+    	<finalName>jadl-kptj</finalName>
+	    <plugin>
+		    <artifactId>maven-assembly-plugin</artifactId>
+		    <configuration>
+		      <descriptorRefs>
+		        <descriptorRef>jar-with-dependencies</descriptorRef>
+		      </descriptorRefs>
+		      <archive>
+		        <manifest>
+		          <addClasspath>true</addClasspath>
+		          <mainClass>com.jadlsoft.KptjApplication</mainClass>
+		        </manifest>
+		      </archive>
+		    </configuration>
+	  </plugin>
+	</build> -->
+	
+	 <build>
+        <plugins>
+            <plugin>
+            	<groupId>com.jadlsoft</groupId>
+                <artifactId>com-jadlsoft-plugin</artifactId>
+                <version>0.0.1</version>
+                <configuration>
+                	<skip>true</skip> 
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                         	<addClasspath>true</addClasspath>
+                            <!-- 此处指定main方法入口的class -->
+                            <mainClass>com.jadlsoft.KptjApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+	
+  
+  <!-- 指定maven编译方式为jdk1.7版本 -->
+<profiles>
+	<profile>
+		<activation>
+			<activeByDefault>true</activeByDefault>
+			<jdk>1.8</jdk>
+		</activation>
+		<properties>
+			<maven.compiler.source>1.8</maven.compiler.source>
+			<maven.compiler.target>1.8</maven.compiler.target>
+			<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+		</properties>
+	</profile>
+</profiles>
 </project>

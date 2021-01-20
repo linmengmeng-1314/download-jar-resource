@@ -103,6 +103,16 @@ public class OldTestWriteExcel {
 		
 	}
 	
+	public static List<MyUser> getUserAll(){
+		List<MyUser> myUsers = new ArrayList<MyUser>();
+		MyUser myUser = null;
+		for (int i = 0; i < 5; i++) {
+			myUser = new MyUser("name" + i, i+1, "idNum" + i);
+			myUsers.add(myUser);
+		}
+		return myUsers;
+	}
+	
 	public static List<MyUser> getUser(){
 		List<MyUser> myUsers = new ArrayList<MyUser>();
 		MyUser myUser = null;

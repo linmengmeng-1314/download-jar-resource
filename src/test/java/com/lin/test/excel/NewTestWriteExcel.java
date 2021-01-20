@@ -2,6 +2,7 @@ package com.lin.test.excel;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -19,22 +20,77 @@ import com.alibaba.excel.write.metadata.style.WriteFont;
 import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
 import com.lin.test.excel.entity.MyUser;
 import com.lin.test.excel.write.BaseExcelWriter;
+import com.lin.test.excel.write.CustomEasyExcel;
 
 /**
  * 使用目前最新版本2.2.6版本的easyExcel
  * @author linmengmeng
  * @date 2020年8月13日 下午9:19:55
  */
-public class NewTestWriteExcel {
+public class NewTestWriteExcel{
 
 
 	// 文件输出位置
-    private static String outPath = "C:\\Users\\jadl\\Desktop\\testWrite.xlsx";
+    private static String outPath_xlsx = "C:\\Users\\jadl\\Desktop\\testWrite.xlsx";
+    
+    private static String outPath_xls = "C:\\Users\\jadl\\Desktop\\testWrite.xls";
     
     public static void main(String[] args) {
 		//consumTest();
-    	consumTestStyle();
+    	//consumTestStyle();
+    	customMyResourceCode();
+    	System.out.println("-----0k-----");
 	}
+    
+    public static void customMyResourceCode() {
+    	FileOutputStream outputStream = null;
+		try {
+			outputStream = new FileOutputStream(outPath_xls);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		List<MyUser> userList = OldTestWriteExcel.getUserAll();
+		
+		WriteWorkbook writeWorkbook = new WriteWorkbook();
+		writeWorkbook.setClazz(MyUser.class);
+		writeWorkbook.setExcelType(ExcelTypeEnum.XLS);
+		writeWorkbook.setOutputStream(outputStream);
+		
+		WriteSheet writeSheet = new WriteSheet();
+		writeSheet.setSheetNo(1);
+		writeSheet.setSheetName("1手动设置sheetName");
+		
+		ExcelWriter excelWriter = new ExcelWriter(writeWorkbook);
+		excelWriter.write(userList, writeSheet);
+		excelWriter.write(userList, writeSheet);
+		
+		excelWriter.finish();
+		try {
+			outputStream.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    public static void customBaseTestStyle() {
+    	
+    	FileOutputStream outputStream = null;
+		try {
+			outputStream = new FileOutputStream(outPath_xlsx);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ExcelWriter excelWriter = EasyExcel.write(outputStream).build();
+		CustomEasyExcel customEasyExcel = new CustomEasyExcel();
+		List<MyUser> userList = OldTestWriteExcel.getUser();
+		customEasyExcel.customWriteOneSheet(userList, customEasyExcel, excelWriter);
+	    // finish 关闭流
+	    excelWriter.finish();
+    	
+    }
     
     /**
      * 带样式的输出   不同的对象可以输出到同一个excel
@@ -82,7 +138,7 @@ public class NewTestWriteExcel {
 
         // 方法3 如果写到不同的sheet 不同的对象
         // 这里 指定文件
-        ExcelWriter excelWriter = EasyExcel.write(outPath).build();
+        ExcelWriter excelWriter = EasyExcel.write(outPath_xlsx).build();
         // 去调用写入,这里我调用了五次，实际使用时根据数据库分页的总的页数来。这里最终会写到5个sheet里面
         WriteSheet writeSheet;
         List<MyUser> userList = OldTestWriteExcel.getUser();
@@ -105,7 +161,7 @@ public class NewTestWriteExcel {
     public static void consumTest() {
     	FileOutputStream outputStream = null;
 		try {
-			outputStream = new FileOutputStream(outPath);
+			outputStream = new FileOutputStream(outPath_xlsx);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -123,7 +179,7 @@ public class NewTestWriteExcel {
     public static void simpleTest() {
     	FileOutputStream outputStream = null;
 		try {
-			outputStream = new FileOutputStream(outPath);
+			outputStream = new FileOutputStream(outPath_xlsx);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
